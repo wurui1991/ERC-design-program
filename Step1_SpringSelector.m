@@ -11,14 +11,12 @@
 % =========================================================================
 
 %% Input 1/4: Target Safety Factor (SF)
-
 SF = 2; % default: 2
 
 %% Input 2/4: Required Response
 % Need: 1) Theta_EA, Rotation of one cam (1/2 of total bending), in radians
 %       2) M_EA, Target torque profile (N*m)
 % below is an example
-
 % Rotation of one cam (1/2 of total bending), in radians
 Theta_EA = [-45 -44.9 -30 -15 0 0.1 15 30 44.9 45] * pi / 180;  
 % Target torque profile (N*m)
@@ -28,7 +26,6 @@ M_EA = [-0.4 -0.035 0 -0.07 -0.035 0.035 0.07 0 0.035 0.4];
 sensorised = 0; % influences the mass estimation
 
 %% INPUT 4/4: Resolution (default: 0.1*pi/180)
-
 dtheta = 0.1*pi/180;
 
 %% Spring Requirement Evaluation
