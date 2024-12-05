@@ -13,14 +13,23 @@
 
 %% INPUT
 
-Rtooth = 2; % tooth diameter (mm)
-gap = 4; % gap between tooth (mm); default: 2*Rtooth
+Rtooth = 1.5; % tooth diameter (mm)
+gap = 2*Rtooth; % gap between tooth (mm); default: 2*Rtooth
 H = 30; % overall thickness [mm]
 Larm = 20; % depth of arm (e.g., the CFRP tube) mountng hole
-L = 25; % length of ERC from pivot to the mounting hole
 Rarm = 8; % inner radius of mountng hole
-R = 9; % outer radius around mounting hole
-Rpivot = 1.5; % radius of spring pivot hole
+R = 10; % outer radius around mounting hoSCRIP
+Rpivot = 4.5; % radius of spring pivot hole
+Rpivot2 = 2.5; % radius of spring pivot hole
+Rbearing = 5;
+Hbearing = 3;
+Rbearing2 = 3;
+L = Larm+Rbearing+2; % length of ERC from pivot to the mounting hole
+L2 = Larm+Rbearing2+1; % length of ERC from pivot to the mounting hole
+
+% profile of potentiometer mounting slot (Alps Alpine RK09K1130A70)
+PMX = [5.5 -7.5 -7.5 5.5 5.5];
+PMY = [4.9 4.9 -4.9 -4.9 4.9];
 
 %% Generate cam contour with equally spaced points along the curve
 XY_mm = XY*1000; % unit covertion to [mm]
@@ -79,10 +88,18 @@ concavetoothall = [concavetoothall.*[1 -1 1]' concavetoothall.*[1 -1 -1]']; % co
 % ERC with convex tooth
 toothall = convextoothall; % initialise with convex tooth
 filename = 'convex.scr';
-ERCscr % generate the AutoCAD .scr script
+if sensorised == 1
+    ERCscr_sensorised_convex_potentiometer % generate the AutoCAD .scr script
+else
+    ERCscr
+end
 
 % ERC with concave tooth
 toothall = concavetoothall; % initialise with concave tooth
 filename = 'concave.scr';
-Rtooth = Rtooth+0.05; % adding a small tolerance (0.05 mm) to tooth radius
-ERCscr % generate the AutoCAD .scr script
+Rtooth = Rtooth+0.025; % adding a small tolerance (0.05 mm) to tooth radius
+if sensorised == 1
+    ERCscr_sensorised_concave % generate the AutoCAD .scr script
+else
+    ERCscr
+end   
